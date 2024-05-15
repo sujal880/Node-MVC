@@ -1,9 +1,12 @@
 const User = require("../models/registermodel");
+const bcrypt=require('bcrypt');
 
 const RegisterUser=async(req,res)=>{
     try{
         const data=req.body;
-        
+        data.password=await bcrypt.hash(data.password,10);
+    
+    
         const mdata=new User(data);
         const response=await mdata.save();
         console.log(response);
